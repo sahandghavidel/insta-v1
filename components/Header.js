@@ -1,9 +1,17 @@
 import Image from "next/image";
-import { SearchIcon } from "@heroicons/react/outline";
+import {
+  SearchIcon,
+  PlusCircleIcon,
+  UserGroupIcon,
+  HeartIcon,
+  PaperAirplaneIcon,
+  MenuIcon,
+} from "@heroicons/react/outline";
+import { HomeIcon } from "@heroicons/react/solid";
 
 export default function Header() {
   return (
-    <div className="select-none flex justify-between bg-white max-w-6xl">
+    <div className="select-none flex justify-between bg-white max-w-6xl mx-5 xl:mx-auto">
       {/* Left */}
       <div className="cursor-pointer relative hidden lg:inline-grid w-24">
         <Image
@@ -12,7 +20,7 @@ export default function Header() {
           className="object-contain"
         />
       </div>
-      <div className="cursor-pointer relative lg:hidden w-10 flex-shrink-0">
+      <div className="cursor-pointer relative lg:hidden w-10">
         <Image
           layout="fill"
           src="https://static.xx.fbcdn.net/assets/?revision=816167972411634&name=desktop-instagram-gradient-logo&density=1"
@@ -33,6 +41,19 @@ export default function Header() {
       </div>
 
       {/* Right */}
+
+      <div className="flex items-center justify-end space-x-4">
+        <HomeIcon className="navBtn" />
+        <MenuIcon className="h-6 md:hidden cursor-pointer" />
+        <PaperAirplaneIcon className="navBtn rotate-45" />
+        <PlusCircleIcon className="navBtn" />
+        <UserGroupIcon className="navBtn" />
+        <HeartIcon className="navBtn" />
+        <img
+          className="rounded-full h-10 cursor-pointer"
+          src="https://static.skillshare.com/uploads/users/350301760/user-image-large.jpg?753816048"
+        />
+      </div>
     </div>
   );
 }
