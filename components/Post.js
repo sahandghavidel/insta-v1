@@ -23,6 +23,8 @@ export default function Post({ username, username, userImg, img, caption }) {
 
       {/* img */}
 
+      <img className="object-cover w-full" src={img} alt="" />
+
       {/* Buttons */}
 
       {/* comments */}

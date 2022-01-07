@@ -7,7 +7,7 @@ export default function Posts() {
       username: "codewithsahand",
       userImg:
         "https://static.skillshare.com/uploads/users/350301760/user-image-large.jpg?753816048",
-      img: "https://static.skillshare.com/uploads/users/350301760/user-image-large.jpg?753816048",
+      img: "https://natureconservancy-h.assetsadobe.com/is/image/content/dam/tnc/nature/en/photos/WOPA160517_D056-resized.jpg?crop=864,0,1728,2304&wid=600&hei=800&scl=2.88",
       caption: "Thanks for watching",
     },
     {
@@ -15,8 +15,8 @@ export default function Posts() {
       username: "codewithsahand",
       userImg:
         "https://static.skillshare.com/uploads/users/350301760/user-image-large.jpg?753816048",
-      img: "https://static.skillshare.com/uploads/users/350301760/user-image-large.jpg?753816048",
-      caption: "Thanks for watching",
+      img: "https://cdn-prod.medicalnewstoday.com/content/images/articles/325/325466/man-walking-dog.jpg",
+      caption: "Thank you guys",
     },
   ];
   return (
