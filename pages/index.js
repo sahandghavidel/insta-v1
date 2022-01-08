@@ -4,7 +4,7 @@ import Header from "../components/Header";
 
 export default function Home() {
   return (
-    <div className="bg-gray-50 h-screen">
+    <div className="bg-gray-50 min-h-screen">
       <Head>
         <title>Instageram 2.0 by YouTube</title>
         <link rel="icon" href="/favicon.ico" />
