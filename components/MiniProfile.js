@@ -6,7 +6,7 @@ export default function MiniProfile() {
         src="https://static.skillshare.com/uploads/users/350301760/user-image-large.jpg?753816048"
         alt="userImage"
       />
-      <div className="mx-5">
+      <div className="flex-1 ml-4">
         <h2 className="font-bold">codewithsahand</h2>
         <h3 className="text-sm text-gray-400 ">Welcome to Instageram</h3>
       </div>

@@ -13,9 +13,9 @@ export default function Feed() {
         <Posts />
       </section>
 
-      <section className="hidden xl:inline-grid md:col-span-1">
+      <section className="hidden xl:inline-grid md:col-span-1 min-h-screen">
         {/* Mini Profile */}
-        <div className="fixed">
+        <div className="fixed w-[380px]">
           <MiniProfile />
           <Suggestions />
         </div>
