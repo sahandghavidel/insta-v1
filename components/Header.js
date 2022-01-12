@@ -12,7 +12,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Header() {
   const { data: session } = useSession();
-  console.log(session);
   return (
     <div className="shadow-sm bg-white border-b sticky top-0 z-50">
       <div className="select-none flex justify-between max-w-6xl mx-5 xl:mx-auto">

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 export default function Suggestions() {
   const [suggestions, setSuggestions] = useState([]);
-  console.log(suggestions);
   useEffect(() => {
     const suggestions = [...Array(5)].map((_, i) => ({
       ...faker.helpers.contextualCard(),
