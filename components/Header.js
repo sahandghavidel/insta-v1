@@ -9,9 +9,10 @@ import {
 } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
-
+import { useRouter } from "next/router";
 export default function Header() {
   const { data: session } = useSession();
+  const router = useRouter();
   return (
     <div className="shadow-sm bg-white border-b sticky top-0 z-50">
       <div className="select-none flex justify-between max-w-6xl mx-5 xl:mx-auto">
@@ -21,6 +22,7 @@ export default function Header() {
             layout="fill"
             src="https://www.androidguys.com/wp-content/uploads/2015/04/insta.png"
             className="object-contain"
+            onClick={() => router.push("/")}
           />
         </div>
 
@@ -29,6 +31,7 @@ export default function Header() {
             layout="fill"
             src="https://static.xx.fbcdn.net/assets/?revision=816167972411634&name=desktop-instagram-gradient-logo&density=1"
             className="object-contain"
+            onClick={() => router.push("/")}
           />
         </div>
         {/* Middle - install https://github.com/tailwindlabs/tailwindcss-forms before that */}
@@ -47,7 +50,7 @@ export default function Header() {
         {/* Right */}
 
         <div className="flex items-center justify-end space-x-4">
-          <HomeIcon className="navBtn" />
+          <HomeIcon className="navBtn" onClick={() => router.push("/")} />
           <MenuIcon className="h-6 md:hidden cursor-pointer" />
           {session ? (
             <>
