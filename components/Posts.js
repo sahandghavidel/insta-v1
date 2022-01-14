@@ -15,6 +15,7 @@ export default function Posts() {
 
     return unsubcribe;
   }, [db]);
+
   return (
     <div>
       {posts.map((post) => (
