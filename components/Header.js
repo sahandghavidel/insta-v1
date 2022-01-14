@@ -6,6 +6,7 @@ import {
   HeartIcon,
   PaperAirplaneIcon,
   MenuIcon,
+  CameraIcon,
 } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -54,9 +55,12 @@ export default function Header() {
 
         <div className="flex items-center justify-end space-x-4">
           <HomeIcon className="navBtn" onClick={() => router.push("/")} />
-          <MenuIcon className="h-6 md:hidden cursor-pointer" />
           {session ? (
             <>
+              <CameraIcon
+                onClick={() => setOpen(true)}
+                className="h-6 md:hidden cursor-pointer"
+              />
               <PaperAirplaneIcon className="navBtn rotate-45" />
               <PlusCircleIcon
                 onClick={() => setOpen(true)}
