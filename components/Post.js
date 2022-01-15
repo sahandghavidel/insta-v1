@@ -7,17 +7,40 @@ import {
   PaperAirplaneIcon,
 } from "@heroicons/react/outline";
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+} from "firebase/firestore";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../firebase";
+import Moment from "react-moment";
 export default function Post({ id, username, userImg, img, caption }) {
   const { data: session } = useSession();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const unsubcribe = onSnapshot(
+      query(
+        collection(db, "posts", id, "comments"),
+        orderBy("timestamp", "desc")
+      ),
+      (snapshot) => {
+        setComments(snapshot.docs);
+      }
+    );
+
+    return unsubcribe;
+  }, [db]);
   async function sendComment(e) {
     e.preventDefault();
     const commentToSend = comment;
+
     setComment("");
     await addDoc(collection(db, "posts", id, "comments"), {
       comment: commentToSend,
@@ -65,6 +88,20 @@ export default function Post({ id, username, userImg, img, caption }) {
         <span className="font-bold mr-2">{username}</span>
         {caption}
       </p>
+      {comments.length > 0 && (
+        <div className="mx-10 max-h-20 scrollbar-none  overflow-y-scroll ">
+          {comments.map((comment) => (
+            <div key={comment.id} className="flex items-center space-x-2 mb-2">
+              <img
+                className="h-7 rounded-full object-cover"
+                src={comment.data().userImage}
+              />
+              <p className="flex-1 truncate">{comment.data().comment}</p>
+              <Moment fromNow>{comment.data().timestamp?.toDate()}</Moment>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* input box */}
       {session && (
