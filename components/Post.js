@@ -10,10 +10,13 @@ import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid";
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
+  setDoc,
 } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -23,7 +26,8 @@ export default function Post({ id, username, userImg, img, caption }) {
   const { data: session } = useSession();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [likes, setLikes] = useState([]);
+  const [hasLiked, setHasLiked] = useState(false);
   useEffect(() => {
     const unsubcribe = onSnapshot(
       query(
@@ -37,6 +41,34 @@ export default function Post({ id, username, userImg, img, caption }) {
 
     return unsubcribe;
   }, [db]);
+
+  useEffect(() => {
+    const unsubcribe = onSnapshot(
+      query(collection(db, "posts", id, "likes")),
+      (snapshot) => {
+        setLikes(snapshot.docs);
+      }
+    );
+
+    return unsubcribe;
+  }, [db]);
+
+  useEffect(() => {
+    setHasLiked(
+      likes.findIndex((like) => like.id === session?.user.uid) !== -1
+    );
+  }, [likes]);
+
+  async function likePost() {
+    if (hasLiked) {
+      await deleteDoc(doc(db, "posts", id, "likes", session.user.uid));
+    } else {
+      await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
+        username: session.user.username,
+      });
+    }
+  }
+
   async function sendComment(e) {
     e.preventDefault();
     const commentToSend = comment;
@@ -74,7 +106,7 @@ export default function Post({ id, username, userImg, img, caption }) {
       {session && (
         <div className="flex justify-between px-4 pt-4">
           <div className="flex space-x-4">
-            <HeartIcon className="btn" />
+            <HeartIcon onClick={likePost} className="btn" />
             <ChatIcon className="btn" />
             <PaperAirplaneIcon className="btn" />
           </div>
@@ -89,13 +121,14 @@ export default function Post({ id, username, userImg, img, caption }) {
         {caption}
       </p>
       {comments.length > 0 && (
-        <div className="mx-10 max-h-20 scrollbar-none  overflow-y-scroll ">
+        <div className="mx-10 max-h-24 scrollbar-none  overflow-y-scroll ">
           {comments.map((comment) => (
-            <div key={comment.id} className="flex items-center space-x-2 mb-2">
+            <div key={comment.id} className="flex items-center space-x-2 mb-3">
               <img
                 className="h-7 rounded-full object-cover"
                 src={comment.data().userImage}
               />
+              <p className="font-bold">{comment.data().username}</p>
               <p className="flex-1 truncate">{comment.data().comment}</p>
               <Moment fromNow>{comment.data().timestamp?.toDate()}</Moment>
             </div>
@@ -111,6 +144,7 @@ export default function Post({ id, username, userImg, img, caption }) {
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             type="text"
+            placeholder="Enter your comment..."
             className="border-none flex-1 focus:ring-0"
           />
           <button
