@@ -7,12 +7,11 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      secret: process.env.SECRET,
     }),
     // ...add more providers here
   ],
   pages: {
-    signIn: "/auth/signin",
+    signIn: "auth/signin",
   },
   callbacks: {
     async session({ session, token, user }) {
