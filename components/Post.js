@@ -106,7 +106,15 @@ export default function Post({ id, username, userImg, img, caption }) {
       {session && (
         <div className="flex justify-between px-4 pt-4">
           <div className="flex space-x-4">
-            <HeartIcon onClick={likePost} className="btn" />
+            {hasLiked ? (
+              <HeartIconFilled
+                onClick={likePost}
+                className="text-red-400 btn"
+              />
+            ) : (
+              <HeartIcon onClick={likePost} className="btn" />
+            )}
+
             <ChatIcon className="btn" />
             <PaperAirplaneIcon className="btn" />
           </div>
